@@ -6,9 +6,8 @@ public class userData {
     public userData() {
     }
 
-    public userData(String name, String collegeId, String email, String password, String phone, String city, String department, String profilePic, String uuid) {
+    public userData(String name, String email, String password, String phone, String city, String department, String profilePic, String uuid) {
         this.name = name;
-        this.collegeId = collegeId;
         this.email = email;
         this.password = password;
         this.phone = phone;

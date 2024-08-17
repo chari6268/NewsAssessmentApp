@@ -48,7 +48,7 @@ public class Registration extends AppCompatActivity {
     private Uri imageUri;
     private DatabaseReference databaseReference;
     private FirebaseStorage storage;
-    private EditText nameEditText, collegeIdEditText, emailEditText, passwordEditText, phoneEditText;
+    private EditText nameEditText, emailEditText, passwordEditText, phoneEditText;
     private Spinner citySpinner, depSpinner;
     private ImageView profileImageView;
     private Button submitButton;
@@ -64,7 +64,7 @@ public class Registration extends AppCompatActivity {
         storage = FirebaseStorage.getInstance();
 
         nameEditText = findViewById(R.id.signup_name);
-        collegeIdEditText = findViewById(R.id.signup_college_id);
+//        collegeIdEditText = findViewById(R.id.signup_college_id);
         emailEditText = findViewById(R.id.signup_email);
         passwordEditText = findViewById(R.id.signup_password);
         phoneEditText = findViewById(R.id.signup_phone);
@@ -86,14 +86,13 @@ public class Registration extends AppCompatActivity {
     private void validateAndSubmit() {
         loadingDialog.load();
         String name = nameEditText.getText().toString().trim();
-        String collegeId = collegeIdEditText.getText().toString().trim();
         String email = emailEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
         String phone = phoneEditText.getText().toString().trim();
         String city = citySpinner.getSelectedItem().toString();
         String dep = depSpinner.getSelectedItem().toString();
 
-        if (name.isEmpty() || collegeId.isEmpty() || email.isEmpty() || password.isEmpty() || phone.isEmpty() || imageUri == null) {
+        if (name.isEmpty() || email.isEmpty() || password.isEmpty() || phone.isEmpty() || imageUri == null) {
             Toast.makeText(this, "Please fill all fields and upload an image", Toast.LENGTH_SHORT).show();
             loadingDialog.dismisss();
             return;
@@ -101,12 +100,6 @@ public class Registration extends AppCompatActivity {
 
         if (!email.contains("@gmail.com")) {
             emailEditText.setError("Email must be a Gmail address");
-            loadingDialog.dismisss();
-            return;
-        }
-
-        if (collegeId.length() != 10) {
-            collegeIdEditText.setError("College ID must be 10 characters long");
             loadingDialog.dismisss();
             return;
         }
@@ -134,7 +127,6 @@ public class Registration extends AppCompatActivity {
                                     // Create user data map
                                     Map<String, Object> user = new HashMap<>();
                                     user.put("name", name);
-                                    user.put("collegeId", collegeId);
                                     user.put("email", email);
                                     user.put("password", password);
                                     user.put("phone", phone);
@@ -142,7 +134,7 @@ public class Registration extends AppCompatActivity {
                                     user.put("department", dep);
                                     user.put("profilePic", imageUrl);
                                     user.put("uniqueId", uuid);
-                                    userData details = new userData(name, collegeId, email, password, phone, city, dep, imageUrl, String.valueOf(uuid));
+                                    userData details = new userData(name, email, password, phone, city, dep, imageUrl, String.valueOf(uuid));
 
                                     FirebaseDatabase.getInstance().getReference().child("UserData").addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
