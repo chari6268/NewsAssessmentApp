@@ -1,10 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
+    <color name="purple_200">#F8F8F8</color>
+    <color name="purple_500">#F195A7</color>
+    <color name="purple_700">#917EBC</color>
     <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
+    <color name="teal_700">#FA018786</color>
     <color name="black">#FF000000</color>
+    <color name="light_white">#D2D2D2</color>
+    <color name="b1">#DADBBD</color>
+    <color name="b2">#D82148</color>
+    <color name="b3">#151D3B</color>
+    <color name="b4">#D2C3D8</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="sri">#8692f7</color>
+    <color name="sri1">#EEDBFF</color>
+    <color name="sri_1">#CDD2F8</color>
+    <color name="sri_3">#F6D5F7</color>
+    <color name="sri_2">#98A1EA</color>
+    <color name="sri_4">#FBE9D7</color>
+    <!--    FBE9D7-->
+
+
+
+    <color name="purple_lite">#DACBFA</color>
+    <color name="purple">#ba53de</color>
+    <color name="pink">#f469a9</color>
+    <color name="blue">#88bef5</color>
+    <color name="peach">#f2a580</color>
+    <color name="peach2">#ed8756</color>
+    <color name="peach0">#F1B79C</color>
+
+    <color name="Red">#CF4444</color>
+    <color name="teal">#60EFFF</color>
+    <color name="green">#29F897</color>
+    <color name="light_green">#90EE90</color>
+    <color name="baby_pink">#FCF2FA</color>
+    <color name="Dark_blue">#3949AB</color>
+
+
+    <color name="gray">#888</color>
 </resources>

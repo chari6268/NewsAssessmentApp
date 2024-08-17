@@ -1,3 +1,39 @@
 <resources>
-    <string name="app_name">NewsApplication</string>
+    <string name="app_name">Assessment Application</string>
+
+    <string-array name="Branches">
+        <item>Select Branch</item>
+        <item>CSE</item>
+        <item>CSE-AIML</item>
+        <item>CSE-CS</item>
+        <item>CSE-CSBS</item>
+        <item>BT</item>
+        <item>BI</item>
+        <item>IT</item>
+        <item>ECE</item>
+        <item>EEE</item>
+        <item>BME</item>
+        <item>Mech</item>
+        <item>Civil</item>
+        <item>AME</item>
+        <item>AGE</item>
+        <item>Chem</item>
+        <item>TT</item>
+        <item>FT</item>
+        <item>PE</item>
+        <item>BSC</item>
+        <item>BBA</item>
+        <item>BCA</item>
+        <item>MBA</item>
+        <item>BSC - Agri</item>
+        <item>BSC - Robotics</item>
+        <item>M Tech</item>
+        <item>MCA</item>
+    </string-array>
+
+    <string-array name="city">
+        <item>Select city</item>
+        <item>Andhra Pradesh</item>
+        <item>Telangana</item>
+    </string-array>
 </resources>

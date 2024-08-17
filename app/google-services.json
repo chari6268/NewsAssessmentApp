@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "1018604924467",
+    "firebase_url": "https://auth-firebase-a7202-default-rtdb.firebaseio.com",
+    "project_id": "auth-firebase-a7202",
+    "storage_bucket": "auth-firebase-a7202.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1018604924467:android:e1a2e47fd8bc7d48e3fd46",
+        "android_client_info": {
+          "package_name": "com.chari6268.newsapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2s6sgkr89mdNwUpHck3DTWT0Y_3O4_aE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1018604924467:android:7f36fe053ff3a161e3fd46",
+        "android_client_info": {
+          "package_name": "com.example.td_tasks"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2s6sgkr89mdNwUpHck3DTWT0Y_3O4_aE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

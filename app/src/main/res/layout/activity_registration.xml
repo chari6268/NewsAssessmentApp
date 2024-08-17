@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/profile_gradient"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:src="@drawable/image3"/>
+
+
+        <LinearLayout
+            android:background="@drawable/layout_bgg"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/alex_brush"
+                android:text="Sign Up"
+                android:textColor="#E11B1B"
+                android:textSize="42dp" />
+            <EditText
+                android:id="@+id/signup_name"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="20dp"
+                android:layout_margin="40dp"
+                android:hint="Full Name"
+                android:background="@drawable/edittextdesign"
+                android:nextFocusForward="@+id/signup_college_id"/>
+
+            <EditText
+                android:id="@+id/signup_college_id"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="20dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:hint="College ID"
+                android:background="@drawable/edittextdesign"
+                android:nextFocusForward="@+id/signup_phone"
+                />
+
+            <EditText
+                android:id="@+id/signup_email"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="20dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:hint="Mail Address"
+                android:background="@drawable/edittextdesign"
+                android:layout_marginTop="40dp"
+                />
+
+            <EditText
+                android:id="@+id/signup_password"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="20dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:hint="Password"
+                android:background="@drawable/edittextdesign"
+                android:layout_marginTop="40dp"
+                android:nextFocusForward="@+id/signup_phone"
+                />
+
+            <EditText
+                android:id="@+id/signup_phone"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="20dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:hint="Phone Number"
+                android:inputType="number"
+                android:background="@drawable/edittextdesign"
+                android:layout_marginTop="40dp"
+                android:nextFocusForward="@+id/gendergrp"
+                />
+
+            <Spinner
+                android:id="@+id/city"
+                android:entries="@array/city"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="20dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_gravity="bottom"
+                android:gravity="bottom"
+                android:background="@drawable/edittextdesign"
+                android:layout_marginTop="40dp"
+                android:nextFocusForward="@+id/signup_submit"
+                />
+
+            <Spinner
+                android:id="@+id/dep"
+                android:entries="@array/Branches"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="20dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_gravity="bottom"
+                android:gravity="bottom"
+                android:background="@drawable/edittextdesign"
+                android:layout_marginTop="40dp"
+                android:nextFocusForward="@+id/signup_submit"
+                />
+
+            <LinearLayout
+                android:layout_marginTop="40dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textSize="24dp"
+                    android:textColor="@color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Upload profile pic"/>
+
+                <ImageView
+                    android:id="@+id/browse"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/add_photo"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginRight="40dp"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textSize="14dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""/>
+
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/signup_submit"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Submit"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="60dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:gravity="right"
+                android:layout_marginRight="40dp"
+
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:textSize="18dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="4dp"
+                    android:textColor="@color/b3"
+                    android:text="Already Have an Account?"/>
+
+                <TextView
+                    android:id="@+id/signup_signin"
+                    android:textSize="19dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/Red"
+                    android:text="Sign In"/>
+            </LinearLayout></LinearLayout>
+    </LinearLayout>
+
+</ScrollView>
