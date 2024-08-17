@@ -52,11 +52,14 @@ public class Registration extends AppCompatActivity {
     private Spinner citySpinner, depSpinner;
     private ImageView profileImageView;
     private Button submitButton;
+    LoadingDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
+
+        loadingDialog = new LoadingDialog(this);
 
         storage = FirebaseStorage.getInstance();
 
@@ -81,6 +84,7 @@ public class Registration extends AppCompatActivity {
     }
 
     private void validateAndSubmit() {
+        loadingDialog.load();
         String name = nameEditText.getText().toString().trim();
         String collegeId = collegeIdEditText.getText().toString().trim();
         String email = emailEditText.getText().toString().trim();
@@ -91,23 +95,27 @@ public class Registration extends AppCompatActivity {
 
         if (name.isEmpty() || collegeId.isEmpty() || email.isEmpty() || password.isEmpty() || phone.isEmpty() || imageUri == null) {
             Toast.makeText(this, "Please fill all fields and upload an image", Toast.LENGTH_SHORT).show();
+            loadingDialog.dismisss();
             return;
         }
 
         if (!email.contains("@gmail.com")) {
             emailEditText.setError("Email must be a Gmail address");
+            loadingDialog.dismisss();
             return;
         }
 
         if (collegeId.length() != 10) {
             collegeIdEditText.setError("College ID must be 10 characters long");
+            loadingDialog.dismisss();
             return;
         }
 
         if (phone.length() != 10) {
             phoneEditText.setError("Phone number must be 10 digits long");
+            loadingDialog.dismisss();
             return;
-        }
+        }else {
 
 
             // Upload image to Firebase Storage
@@ -133,20 +141,23 @@ public class Registration extends AppCompatActivity {
                                     user.put("city", city);
                                     user.put("department", dep);
                                     user.put("profilePic", imageUrl);
-                                    user.put("uniqueId",uuid);
+                                    user.put("uniqueId", uuid);
                                     userData details = new userData(name, collegeId, email, password, phone, city, dep, imageUrl, String.valueOf(uuid));
 
                                     FirebaseDatabase.getInstance().getReference().child("UserData").addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                            if (snapshot.child("NEED_TO_BE_ACTIVATED").hasChild(phone)){
+                                            if (snapshot.child("NEED_TO_BE_ACTIVATED").hasChild(phone)) {
+                                                loadingDialog.dismisss();
                                                 Toast.makeText(getApplication(), "Oops!! User already Registered..!", Toast.LENGTH_SHORT).show();
-                                            }else{
+                                            } else {
                                                 saveData(details);
                                             }
                                         }
+
                                         @Override
                                         public void onCancelled(@NonNull DatabaseError error) {
+                                            loadingDialog.dismisss();
                                         }
                                     });
                                     System.out.println(user);
@@ -158,10 +169,11 @@ public class Registration extends AppCompatActivity {
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
+                            loadingDialog.dismisss();
                             Toast.makeText(getApplication(), "Failed to upload image: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
-
+        }
 
 //        uploadImage(name, collegeId, email, password, phone, city, dep);
     }
@@ -176,6 +188,7 @@ public class Registration extends AppCompatActivity {
                                 .child(details.getPhone()).setValue(details).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
+                                        loadingDialog.dismisss();
                                         Toast.makeText(getApplication(), "Success!! You Can Login Now", Toast.LENGTH_SHORT).show();
                                         startActivity(new Intent(getApplication(),Login.class));
                                         finish();
