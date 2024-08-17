@@ -148,6 +148,7 @@
                     android:layout_marginLeft="40dp"
                     android:layout_marginRight="40dp"/>
                 <TextView
+                    android:id="@+id/filename"
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:textSize="14dp"
