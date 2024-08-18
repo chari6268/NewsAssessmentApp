@@ -45,7 +45,7 @@ public class Registration extends AppCompatActivity {
     private static final int PERMISSION_REQUEST_CODE = 2;
 
     private ImageView imageView;
-    private TextView fileNameTextView;
+    private TextView fileNameTextView,signup_signin;
     private Uri imageUri;
     private DatabaseReference databaseReference;
     private FirebaseStorage storage;
@@ -74,9 +74,11 @@ public class Registration extends AppCompatActivity {
         profileImageView = findViewById(R.id.browse);
         submitButton = findViewById(R.id.signup_submit);
         fileNameTextView = findViewById(R.id.filename);
+        signup_signin = findViewById(R.id.signup_signin);
 
         profileImageView.setOnClickListener(v -> openFileChooser());
         submitButton.setOnClickListener(v -> validateAndSubmit());
+        signup_signin.setOnClickListener(v -> startActivity(new Intent(getApplication(),Login.class)));
     }
 
     private void openFileChooser() {

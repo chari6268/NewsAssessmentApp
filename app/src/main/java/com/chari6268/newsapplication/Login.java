@@ -38,6 +38,12 @@ public class Login extends AppCompatActivity {
 
         loadingDialog = new LoadingDialog(this);
 
+        SharedPreferences sharedPreferences = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        if(sharedPreferences.getBoolean("isLoggedIn",false)){
+            Intent i = new Intent(getApplicationContext(), postNews.class);
+            startActivity(i);
+        }
+
         // Initialize UI components
         inputMail = findViewById(R.id.input_mail);
         inputPassword = findViewById(R.id.input_password);
