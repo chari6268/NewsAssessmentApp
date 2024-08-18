@@ -41,20 +41,8 @@
                 android:paddingLeft="20dp"
                 android:layout_margin="40dp"
                 android:hint="Full Name"
-                android:background="@drawable/edittextdesign"
-                android:nextFocusForward="@+id/signup_college_id"/>
+                android:background="@drawable/edittextdesign"/>
 
-            <EditText
-                android:id="@+id/signup_college_id"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:paddingLeft="20dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:hint="College ID"
-                android:background="@drawable/edittextdesign"
-                android:nextFocusForward="@+id/signup_phone"
-                />
 
             <EditText
                 android:id="@+id/signup_email"
@@ -65,7 +53,6 @@
                 android:layout_marginRight="40dp"
                 android:hint="Mail Address"
                 android:background="@drawable/edittextdesign"
-                android:layout_marginTop="40dp"
                 />
 
             <EditText
@@ -143,7 +130,7 @@
                 <ImageView
                     android:id="@+id/browse"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="64dp"
                     android:src="@drawable/add_photo"
                     android:layout_marginLeft="40dp"
                     android:layout_marginRight="40dp"/>

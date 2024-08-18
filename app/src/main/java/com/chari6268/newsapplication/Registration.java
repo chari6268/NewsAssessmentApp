@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -133,8 +134,8 @@ public class Registration extends AppCompatActivity {
                                     user.put("city", city);
                                     user.put("department", dep);
                                     user.put("profilePic", imageUrl);
-                                    user.put("uniqueId", uuid);
-                                    userData details = new userData(name, email, password, phone, city, dep, imageUrl, String.valueOf(uuid));
+                                    user.put("uniqueId", "");
+                                    userData details = new userData(name, email, password, phone, city, dep, imageUrl, "");
 
                                     FirebaseDatabase.getInstance().getReference().child("UserData").addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
@@ -198,8 +199,19 @@ public class Registration extends AppCompatActivity {
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             imageUri = data.getData();
             String fileName = new File(imageUri.getPath()).getName();
-            fileNameTextView.setText(fileName);
+            fileNameTextView.setText(getFileName(imageUri));
+            profileImageView.setImageURI(imageUri);
         }
+    }
+
+    private String getFileName(Uri uri) {
+        String[] projection = {MediaStore.MediaColumns.DISPLAY_NAME};
+        try (Cursor cursor = getContentResolver().query(uri, projection, null, null, null)) {
+            if (cursor != null && cursor.moveToFirst()) {
+                return cursor.getString(0);
+            }
+        }
+        return "Unknown File";
     }
 
     @Override
