@@ -86,6 +86,7 @@ public class postNews extends AppCompatActivity {
                         return true;
                     case R.id.nav_logout:
                         // Handle about action
+
                         return true;
 
                     default:

@@ -142,7 +142,7 @@ public class Registration extends AppCompatActivity {
                                     FirebaseDatabase.getInstance().getReference().child("UserData").addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                            if (snapshot.child("NEED_TO_BE_ACTIVATED").hasChild(phone)) {
+                                            if (snapshot.child("NEED_TO_BE_CREATED").hasChild(phone)) {
                                                 loadingDialog.dismisss();
                                                 Toast.makeText(getApplication(), "Oops!! User already Registered..!", Toast.LENGTH_SHORT).show();
                                             } else {

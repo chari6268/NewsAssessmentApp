@@ -36,4 +36,11 @@
         <item>Andhra Pradesh</item>
         <item>Telangana</item>
     </string-array>
+
+    <string-array name="status">
+        <item>Select Status</item>
+        <item>Accepted</item>
+        <item>Rejected</item>
+    </string-array>
+
 </resources>
