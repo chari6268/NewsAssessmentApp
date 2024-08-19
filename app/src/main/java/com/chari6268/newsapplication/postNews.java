@@ -3,21 +3,31 @@ package com.chari6268.newsapplication;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -31,8 +41,7 @@ public class postNews extends AppCompatActivity {
     private static final int PICK_VIDEO_REQUEST = 2;
 
     private com.google.android.material.textfield.TextInputEditText inputMail;
-    private ImageView browseImage;
-    private ImageView browseVideo;
+    private ImageView browseImage,browseVideo,menu;
     private TextView filenameImage;
     private TextView filenameVideo;
     private Button submitButton;
@@ -45,13 +54,54 @@ public class postNews extends AppCompatActivity {
     final String MY_PREFS_NAME = "status";
     LoadingDialog loadingDialog;
     String uuid;
+    TextView workLoadInToolBar,tittle;
+    SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_news);
         loadingDialog = new LoadingDialog(this);
 
-        SharedPreferences sharedPreferences = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar.setTitle("");
+        workLoadInToolBar = findViewById(R.id.textViewinToolbar);
+        workLoadInToolBar.setText("");
+        tittle = findViewById(R.id.titleViewinToolbar);
+        menu = findViewById(R.id.IconinToolbar);
+        menu.setOnClickListener(v ->{
+            PopupMenu popupMenu = new PopupMenu(this, v);
+            MenuInflater inflater = popupMenu.getMenuInflater();
+            inflater.inflate(R.menu.drawer_view, popupMenu.getMenu());
+
+            // Handle menu item clicks
+            popupMenu.setOnMenuItemClickListener(item -> {
+                switch (item.getItemId()) {
+                    case R.id.nav_post:
+                        // Handle settings action
+                        return true;
+                    case R.id.nav_report:
+                        // Handle about action
+                        return true;
+                    case R.id.nav_logout:
+                        // Handle about action
+                        return true;
+
+                    default:
+                        return false;
+                }
+            });
+
+            // Show the PopupMenu
+            popupMenu.show();
+        });
+
+
+        setSupportActionBar(toolbar);
+
+
+        sharedPreferences = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
 
         uuid = sharedPreferences.getString("uuid", "");
 
@@ -119,11 +169,13 @@ public class postNews extends AppCompatActivity {
 
         if (textInput.isEmpty()) {
             loadingDialog.dismisss();
+            alert();
             Toast.makeText(this, "Please enter text", Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (imageUri == null) {
+            alert();
             loadingDialog.dismisss();
             Toast.makeText(this, "Please upload an image", Toast.LENGTH_SHORT).show();
             return;
@@ -131,10 +183,10 @@ public class postNews extends AppCompatActivity {
 
         if (videoUri == null) {
             loadingDialog.dismisss();
+            alert();
             Toast.makeText(this, "Please upload a video", Toast.LENGTH_SHORT).show();
             return;
         }
-
 
         else{
             uploadToFirebaseStorage(imageUri, "images/" + uuid + ".jpg", new UploadCallback() {
@@ -189,4 +241,21 @@ public class postNews extends AppCompatActivity {
                     }
                 });
     }
+
+
+    public void alert(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Oops! Please fill all fields and upload an image and video ?");
+        builder.setTitle("Alert!!");
+        builder.setCancelable(true);
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
 }
