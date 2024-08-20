@@ -18,6 +18,7 @@ import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
@@ -33,6 +34,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.auth.User;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -82,13 +84,12 @@ public class postNews extends AppCompatActivity {
             popupMenu.setOnMenuItemClickListener(item -> {
                 switch (item.getItemId()) {
                     case R.id.nav_post:
-                        // Handle settings action
                         return true;
                     case R.id.nav_report:
-                        // Handle about action
+                        AnimationUtils.loadAnimation(this,R.anim.fade_in);
+                        startActivity(new Intent(postNews.this, UserReport.class));
                         return true;
                     case R.id.nav_logout:
-                        // Handle about action
                         SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
                         editor.remove("uuid");
                         editor.putBoolean("isLoggedIn", false);

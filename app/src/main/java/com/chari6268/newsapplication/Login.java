@@ -40,7 +40,7 @@ public class Login extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         if(sharedPreferences.getBoolean("isLoggedIn",false)){
-            Intent i = new Intent(getApplicationContext(), postNews.class);
+            Intent i = new Intent(getApplicationContext(), UserReport.class);
             startActivity(i);
         }
 
@@ -107,7 +107,7 @@ public class Login extends AppCompatActivity {
                                                                 editor.putBoolean("isLoggedIn", true);
                                                                 editor.apply();
                                                                 Toast.makeText(Login.this, "Success!!", Toast.LENGTH_SHORT).show();
-                                                                startActivity(new Intent(getApplicationContext(), postNews.class));
+                                                                startActivity(new Intent(getApplicationContext(), UserReport.class));
                                                                 finish();
                                                             }
                                                         }
@@ -153,16 +153,13 @@ public class Login extends AppCompatActivity {
                                             editor.apply();
                                             loadingDialog.dismisss();
                                             Toast.makeText(Login.this, "Success!!", Toast.LENGTH_SHORT).show();
-                                            startActivity(new Intent(getApplicationContext(), postNews.class));
+                                            startActivity(new Intent(getApplicationContext(), UserReport.class));
                                             finish();
                                         }
                                     }
                                 });
                             }
                             else{
-                                inputMail.setError("Incorrect User Name");
-                                inputMail.requestFocus();
-                                loadingDialog.dismisss();
                             }
                         }
                     }
