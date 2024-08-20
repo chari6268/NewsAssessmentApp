@@ -131,6 +131,36 @@ public class postNews extends AppCompatActivity {
         filenameVideo = findViewById(R.id.filename1);
         submitButton = findViewById(R.id.phone_submit_button);
 
+
+        FirebaseDatabase.getInstance().getReference("NewsData").child("NEED_TO_BE_CREATED")
+                .child(uuid).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists()) {
+                            NewsData user = snapshot.getValue(NewsData.class);
+                            if (user.getUserId() != null) {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(postNews.this);
+                                builder.setMessage("Oops! User already post the News ?");
+                                builder.setTitle("Alert!!");
+                                builder.setCancelable(true);
+                                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.cancel();
+                                    }
+                                });
+                                AlertDialog alertDialog = builder.create();
+                                alertDialog.show();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
         // Set click listeners
         browseImage.setOnClickListener(v -> openImageChooser());
         browseVideo.setOnClickListener(v -> openVideoChooser());
@@ -202,45 +232,58 @@ public class postNews extends AppCompatActivity {
 
         else{
 
-//            FirebaseDatabase.getInstance().getReference("NewsData").child("NEED_TO_BE_CREATED")
-//                    .child(uuid)
-//                    .addValueEventListener(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-//                                NewsData user = dataSnapshot.getValue(NewsData.class);
-//                                if(user.getUserId() != null){
-//
-//                                }
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(@NonNull DatabaseError error) {
-//
-//                        }
-//                    });
-            uploadToFirebaseStorage(imageUri, "images/" + uuid + ".jpg", new UploadCallback() {
-                @Override
-                public void onSuccess(String fileUrl) {
-                    uploadToFirebaseStorage(videoUri, "videos/" + uuid + ".mp4", new UploadCallback() {
+            FirebaseDatabase.getInstance().getReference("NewsData").child("NEED_TO_BE_CREATED")
+                    .child(uuid)
+                    .addValueEventListener(new ValueEventListener() {
                         @Override
-                        public void onSuccess(String fileUrl) {
-                            saveMetadataToDatabase(uuid, textInput, fileUrl, fileUrl);
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if(snapshot.exists()) {
+                                NewsData user = snapshot.getValue(NewsData.class);
+                                if(user.getUserId() != null){
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(postNews.this);
+                                    builder.setMessage("Oops! User already post the News ?");
+                                    builder.setTitle("Alert!!");
+                                    builder.setCancelable(true);
+                                    builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            loadingDialog.dismisss();
+                                            dialog.cancel();
+                                        }
+                                    });
+                                    AlertDialog alertDialog = builder.create();
+                                    alertDialog.show();
+                                }else{
+                                    uploadToFirebaseStorage(imageUri, "images/" + uuid + ".jpg", new UploadCallback() {
+                                        @Override
+                                        public void onSuccess(String fileUrl) {
+                                            uploadToFirebaseStorage(videoUri, "videos/" + uuid + ".mp4", new UploadCallback() {
+                                                @Override
+                                                public void onSuccess(String fileUrl) {
+                                                    saveMetadataToDatabase(uuid, textInput, fileUrl, fileUrl);
+                                                }
+
+                                                @Override
+                                                public void onFailure(Exception e) {
+                                                    Toast.makeText(postNews.this, "Failed to upload video.", Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+                                        }
+
+                                        @Override
+                                        public void onFailure(Exception e) {
+                                            Toast.makeText(postNews.this, "Failed to upload image.", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                }
+                            }
                         }
 
                         @Override
-                        public void onFailure(Exception e) {
-                            Toast.makeText(postNews.this, "Failed to upload video.", Toast.LENGTH_SHORT).show();
+                        public void onCancelled(@NonNull DatabaseError error) {
+
                         }
                     });
-                }
-
-                @Override
-                public void onFailure(Exception e) {
-                    Toast.makeText(postNews.this, "Failed to upload image.", Toast.LENGTH_SHORT).show();
-                }
-            });
         }
     }
 
