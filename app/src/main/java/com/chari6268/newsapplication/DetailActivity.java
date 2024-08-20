@@ -61,10 +61,8 @@ public class DetailActivity extends AppCompatActivity {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                List<NewsData> userList = new ArrayList<>();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    NewsData user = snapshot.getValue(NewsData.class);
-                    userList.add(user);
+                    NewsData user = dataSnapshot.getValue(NewsData.class);
+                if (user != null) {
                     key = user.getTextInput();
 
                     nameTextView.setText(name);
@@ -73,8 +71,8 @@ public class DetailActivity extends AppCompatActivity {
                     numberTextView.setText(phone);
                     cityTextView.setText(city);
                     postTextView.setText(user.getTextInput());
+                    loadingDialog.dismisss();
                 }
-                loadingDialog.dismisss();
             }
 
             @Override
@@ -109,28 +107,30 @@ public class DetailActivity extends AppCompatActivity {
                         .addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                    NewsData user = dataSnapshot.getValue(NewsData.class);
-                                    FirebaseDatabase.getInstance().getReference().child("NewsData").child("NEED_TO_BE_ACTIVATED").child(user.getUserId()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            user.setStatus(status);
-                                            FirebaseDatabase.getInstance().getReference().child("NewsData").child("ACTIVATED").child(user.getUserId())
-                                                    .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                        @Override
-                                                        public void onComplete(@NonNull Task<Void> task) {
-                                                            if (task.isSuccessful()) {
-                                                                loadingDialog.dismisss();
-                                                                startActivity(new Intent(DetailActivity.this, MainActivity.class));
-                                                                finish();
-                                                            }
-                                                        }
-                                                    });
-                                        }
-                                    });
+                                    if (snapshot.exists()) {
+                                        NewsData user = snapshot.getValue(NewsData.class);
+                                        if (user != null) {
+                                            FirebaseDatabase.getInstance().getReference().child("NewsData").child("NEED_TO_BE_ACTIVATED").child(user.getUserId()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    user.setStatus(status);
+                                                    FirebaseDatabase.getInstance().getReference().child("NewsData").child("ACTIVATED").child(user.getUserId())
+                                                            .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<Void> task) {
+                                                                    if (task.isSuccessful()) {
+                                                                        loadingDialog.dismisss();
+                                                                        startActivity(new Intent(DetailActivity.this, MainActivity.class));
+                                                                        finish();
+                                                                    }
+                                                                }
+                                                            });
+                                                }
+                                            });
 
+                                        }
+                                    }
                                 }
-                            }
 
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {

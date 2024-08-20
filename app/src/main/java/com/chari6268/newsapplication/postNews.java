@@ -28,8 +28,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -86,7 +89,15 @@ public class postNews extends AppCompatActivity {
                         return true;
                     case R.id.nav_logout:
                         // Handle about action
+                        SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+                        editor.remove("uuid");
+                        editor.putBoolean("isLoggedIn", false);
+                        editor.apply();
 
+                        FirebaseAuth.getInstance().signOut();
+                        Intent intent = new Intent(postNews.this, Login.class);
+                        startActivity(intent);
+                        finish();
                         return true;
 
                     default:
@@ -190,6 +201,25 @@ public class postNews extends AppCompatActivity {
         }
 
         else{
+
+//            FirebaseDatabase.getInstance().getReference("NewsData").child("NEED_TO_BE_CREATED")
+//                    .child(uuid)
+//                    .addValueEventListener(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+//                                NewsData user = dataSnapshot.getValue(NewsData.class);
+//                                if(user.getUserId() != null){
+//
+//                                }
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(@NonNull DatabaseError error) {
+//
+//                        }
+//                    });
             uploadToFirebaseStorage(imageUri, "images/" + uuid + ".jpg", new UploadCallback() {
                 @Override
                 public void onSuccess(String fileUrl) {
