@@ -254,7 +254,9 @@ public class postNews extends AppCompatActivity {
                                     });
                                     AlertDialog alertDialog = builder.create();
                                     alertDialog.show();
-                                }else{
+                                }
+
+                            }else{
                                     uploadToFirebaseStorage(imageUri, "images/" + uuid + ".jpg", new UploadCallback() {
                                         @Override
                                         public void onSuccess(String fileUrl) {
@@ -278,8 +280,6 @@ public class postNews extends AppCompatActivity {
                                     });
                                 }
                             }
-                        }
-
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
 

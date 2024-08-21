@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("UserData").child("ACTIVATED");
+        databaseReference = FirebaseDatabase.getInstance().getReference("NewsData").child("NEED_TO_BE_ACTIVATED");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
