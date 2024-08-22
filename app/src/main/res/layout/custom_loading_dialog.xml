@@ -19,7 +19,7 @@
         <pl.droidsonroids.gif.GifImageView
             android:layout_width="wrap_content"
             android:layout_height="160dp"
-            android:src="@drawable/duck_loading" />
+            android:src="@drawable/loading_dummy" />
 
 
     </LinearLayout>

@@ -259,11 +259,11 @@ public class postNews extends AppCompatActivity {
                             }else{
                                     uploadToFirebaseStorage(imageUri, "images/" + uuid + ".jpg", new UploadCallback() {
                                         @Override
-                                        public void onSuccess(String fileUrl) {
+                                        public void onSuccess(String fileUrl1) {
                                             uploadToFirebaseStorage(videoUri, "videos/" + uuid + ".mp4", new UploadCallback() {
                                                 @Override
                                                 public void onSuccess(String fileUrl) {
-                                                    saveMetadataToDatabase(uuid, textInput, fileUrl, fileUrl);
+                                                    saveMetadataToDatabase(uuid, textInput, fileUrl1, fileUrl);
                                                 }
 
                                                 @Override

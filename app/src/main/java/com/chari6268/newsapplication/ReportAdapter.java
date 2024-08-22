@@ -49,8 +49,6 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.CardViewHo
 
         Glide.with(holder.itemView.getContext()).load(newsDataTest.getImageUrl()).into(holder.postImageView);
 
-
-//        Glide.with(holder.itemView.getContext()).load(newsDataTest.getVideoUrl()).into(holder.postVideoView);
         if (newsDataTest.getVideoUrl() != null) {
             holder.postVideoView.setVisibility(View.VISIBLE);
             Uri videoUri = Uri.parse(newsDataTest.getVideoUrl());
@@ -79,8 +77,8 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.CardViewHo
             phoneNumberTextView = itemView.findViewById(R.id.textViewNumber);
             emailTextView = itemView.findViewById(R.id.textViewEmail);
             postTestTextView = itemView.findViewById(R.id.postTest);
-            postImageView = itemView.findViewById(R.id.postImage); // Ensure this ID exists in your layout
-            postVideoView = itemView.findViewById(R.id.postVideo); // Ensure this ID exists in your layout
+            postImageView = itemView.findViewById(R.id.postImage);
+            postVideoView = itemView.findViewById(R.id.postVideo);
         }
     }
 }
