@@ -47,7 +47,7 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.CardViewHo
         holder.emailTextView.setText(userDataTest.getEmail());
         holder.postTestTextView.setText(newsDataTest.getTextInput());
 
-        Glide.with(holder.itemView.getContext()).load(userDataTest.getProfilePic()).into(holder.postImageView);
+        Glide.with(holder.itemView.getContext()).load(newsDataTest.getImageUrl()).into(holder.postImageView);
 
 
 //        Glide.with(holder.itemView.getContext()).load(newsDataTest.getVideoUrl()).into(holder.postVideoView);

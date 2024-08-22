@@ -1,5 +1,6 @@
 package com.chari6268.newsapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -56,14 +57,50 @@ public class MainActivity extends AppCompatActivity {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                List<userData> userList = new ArrayList<>();
+                List<NewsData> userList = new ArrayList<>();
+                List<userData> filteredUserDataList = new ArrayList<>();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    userData user = snapshot.getValue(userData.class);
+                    NewsData user = snapshot.getValue(NewsData.class);
                     userList.add(user);
                 }
-                userAdapter = new UserAdapter(userList,MainActivity.this);
-                recyclerView.setAdapter(userAdapter);
-                loadingDialog.dismisss();
+                // Fetch user data and filter based on city and department
+                DatabaseReference userDataRef = FirebaseDatabase.getInstance().getReference("UserData").child("ACTIVATED");
+                userDataRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot userSnapshot) {
+                        filteredUserDataList.clear(); // Clear previous data
+
+                        for (DataSnapshot snapshot : userSnapshot.getChildren()) {
+                            userData user = snapshot.getValue(userData.class);
+                                filteredUserDataList.add(user);
+                        }
+
+                        // Extract user IDs from the filtered user data
+                        List<String> validUserIds = new ArrayList<>();
+                        for (userData user : filteredUserDataList) {
+                            validUserIds.add(user.getUuid()); // Assuming `uuid` is used to match with `userId` in NewsData
+                        }
+
+                        // Filter NewsData based on valid user IDs
+                        List<NewsData> filteredNewsDataList = new ArrayList<>();
+                        for (NewsData newsData : userList) {
+                            if (validUserIds.contains(newsData.getUserId())) {
+                                filteredNewsDataList.add(newsData);
+                            }
+                        }
+
+                        System.out.println(userList);
+                        userAdapter = new UserAdapter(filteredUserDataList,MainActivity.this);
+                        recyclerView.setAdapter(userAdapter);
+                        loadingDialog.dismisss();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        // Handle possible errors
+                        Toast.makeText(MainActivity.this, "Failed to load user data: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
 
             @Override
