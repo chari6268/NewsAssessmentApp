@@ -2,6 +2,7 @@ package com.chari6268.newsapplication;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,6 +59,21 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.CardViewHo
             holder.postVideoView.setVisibility(View.GONE);
         }
 
+        holder.editButton.setOnClickListener(v ->{
+            Intent intent = new Intent(holder.itemView.getContext(), EditActivity.class);
+            intent.putExtra("name", userDataTest.getName());
+            intent.putExtra("phone", userDataTest.getPhone());
+            intent.putExtra("email", userDataTest.getEmail());
+            intent.putExtra("profileImage", userDataTest.getProfilePic());
+            intent.putExtra("uuid",userDataTest.getUuid());
+            intent.putExtra("branch",userDataTest.getDepartment());
+            intent.putExtra("city",userDataTest.getCity());
+            intent.putExtra("posttext",newsDataTest.getTextInput());
+            intent.putExtra("imgurl",newsDataTest.getImageUrl());
+            intent.putExtra("videourl",newsDataTest.getVideoUrl());
+            holder.itemView.getContext().startActivity(intent);
+        });
+
     }
 
     @Override
@@ -66,7 +82,7 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.CardViewHo
     }
 
     static class CardViewHolder extends RecyclerView.ViewHolder {
-        ImageView profileImageView,postImageView;
+        ImageView profileImageView,postImageView,editButton;
         TextView nameTextView,phoneNumberTextView,emailTextView,postTestTextView;
         VideoView postVideoView;
 
@@ -79,6 +95,7 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.CardViewHo
             postTestTextView = itemView.findViewById(R.id.postTest);
             postImageView = itemView.findViewById(R.id.postImage);
             postVideoView = itemView.findViewById(R.id.postVideo);
+            editButton = itemView.findViewById(R.id.card_edit);
         }
     }
 }

@@ -147,7 +147,10 @@ public class postNews extends AppCompatActivity {
                                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
+                                        loadingDialog.dismisss();
                                         dialog.cancel();
+                                        startActivity(new Intent(postNews.this,UserReport.class));
+                                        finish();
                                     }
                                 });
                                 AlertDialog alertDialog = builder.create();
@@ -230,9 +233,7 @@ public class postNews extends AppCompatActivity {
             Toast.makeText(this, "Please upload a video", Toast.LENGTH_SHORT).show();
             return;
         }
-
         else{
-
             FirebaseDatabase.getInstance().getReference("NewsData").child("NEED_TO_BE_CREATED")
                     .child(uuid)
                     .addValueEventListener(new ValueEventListener() {
@@ -250,6 +251,8 @@ public class postNews extends AppCompatActivity {
                                         public void onClick(DialogInterface dialog, int which) {
                                             loadingDialog.dismisss();
                                             dialog.cancel();
+                                            startActivity(new Intent(postNews.this,UserReport.class));
+                                            finish();
                                         }
                                     });
                                     AlertDialog alertDialog = builder.create();
@@ -265,7 +268,6 @@ public class postNews extends AppCompatActivity {
                                                 public void onSuccess(String fileUrl) {
                                                     saveMetadataToDatabase(uuid, textInput, fileUrl1, fileUrl);
                                                 }
-
                                                 @Override
                                                 public void onFailure(Exception e) {
                                                     Toast.makeText(postNews.this, "Failed to upload video.", Toast.LENGTH_SHORT).show();
