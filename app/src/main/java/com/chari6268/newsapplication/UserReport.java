@@ -3,6 +3,7 @@ package com.chari6268.newsapplication;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -97,6 +98,9 @@ public class UserReport extends AppCompatActivity {
         checkLayout = findViewById(R.id.check_layout);
         recyclerViewLayout = findViewById(R.id.recycler_view_layout);
 
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
         submitButton.setOnClickListener(v ->{
             loadingDialog.load();
             String city = citySpinner.getSelectedItem().toString();
@@ -109,6 +113,7 @@ public class UserReport extends AppCompatActivity {
                 checkLayout.setVisibility(View.GONE);
                 recyclerViewLayout.setVisibility(View.VISIBLE);
 
+                /*
                 databaseReference = FirebaseDatabase.getInstance().getReference("NewsData").child("ACTIVATED");
                 databaseReference.addValueEventListener(new ValueEventListener() {
                     @Override
@@ -125,9 +130,13 @@ public class UserReport extends AppCompatActivity {
                                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                                             if(snapshot.exists()){
                                                 userData testUser = snapshot.getValue(userData.class);
-                                                userDataList.add(testUser);
+                                                if(testUser.getCity().equals(city) && testUser.getDepartment().equals(dep)){
+                                                    userDataList.add(testUser);
+                                                }
                                                 System.out.println(userDataList);
                                                 System.out.println(userList);
+                                                ReportAdapter userAdapter = new ReportAdapter(UserReport.this,userList,userDataList);
+                                                recyclerView.setAdapter(userAdapter);
                                                 loadingDialog.dismisss();
                                             }
                                         }
@@ -144,6 +153,72 @@ public class UserReport extends AppCompatActivity {
                     public void onCancelled(DatabaseError databaseError) {
                         // Handle possible errors
                         Toast.makeText(UserReport.this, ""+databaseError.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+                 */
+                databaseReference = FirebaseDatabase.getInstance().getReference("NewsData").child("ACTIVATED");
+                databaseReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        List<NewsData> allNewsDataList = new ArrayList<>();
+                        List<userData> filteredUserDataList = new ArrayList<>();
+
+                        // Gather all NewsData
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            NewsData newsData = snapshot.getValue(NewsData.class);
+                            if (newsData != null) {
+                                allNewsDataList.add(newsData);
+                            }
+                        }
+
+                        // Fetch user data and filter based on city and department
+                        DatabaseReference userDataRef = FirebaseDatabase.getInstance().getReference("UserData").child("ACTIVATED");
+                        userDataRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot userSnapshot) {
+                                filteredUserDataList.clear(); // Clear previous data
+
+                                for (DataSnapshot snapshot : userSnapshot.getChildren()) {
+                                    userData user = snapshot.getValue(userData.class);
+                                    if (user != null && user.getCity().equals(city) && user.getDepartment().equals(dep)) {
+                                        filteredUserDataList.add(user);
+                                    }
+                                }
+
+                                // Extract user IDs from the filtered user data
+                                List<String> validUserIds = new ArrayList<>();
+                                for (userData user : filteredUserDataList) {
+                                    validUserIds.add(user.getUuid()); // Assuming `uuid` is used to match with `userId` in NewsData
+                                }
+
+                                // Filter NewsData based on valid user IDs
+                                List<NewsData> filteredNewsDataList = new ArrayList<>();
+                                for (NewsData newsData : allNewsDataList) {
+                                    if (validUserIds.contains(newsData.getUserId())) {
+                                        filteredNewsDataList.add(newsData);
+                                    }
+                                }
+
+//                                System.out.println("Filtered userDataList: " + filteredUserDataList);
+//                                System.out.println("Filtered NewsDataList: " + filteredNewsDataList);
+
+                                ReportAdapter userAdapter = new ReportAdapter(UserReport.this, filteredNewsDataList, filteredUserDataList);
+                                recyclerView.setAdapter(userAdapter);
+                                loadingDialog.dismisss();
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                // Handle possible errors
+                                Toast.makeText(UserReport.this, "Failed to load user data: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        // Handle possible errors
+                        Toast.makeText(UserReport.this, "Failed to load news data: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
 

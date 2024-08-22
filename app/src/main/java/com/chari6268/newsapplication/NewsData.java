@@ -57,4 +57,15 @@ public class NewsData {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "NewsData{" +
+                "userId='" + userId + '\'' +
+                ", textInput='" + textInput + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", videoUrl='" + videoUrl + '\'' +
+                ", status='" + status + '\'' +
+                '}';
+    }
 }

@@ -88,4 +88,19 @@ public class userData {
     public void setUuid(String uuid) {
         this.uuid = uuid;
     }
+
+    @Override
+    public String toString() {
+        return "userData{" +
+                "name='" + name + '\'' +
+                ", collegeId='" + collegeId + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", phone='" + phone + '\'' +
+                ", city='" + city + '\'' +
+                ", department='" + department + '\'' +
+                ", profilePic='" + profilePic + '\'' +
+                ", uuid='" + uuid + '\'' +
+                '}';
+    }
 }
