@@ -264,6 +264,7 @@ public class EditActivity extends AppCompatActivity {
                                 .child(uuid).setValue(newsData).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
+                                        startActivity(new Intent(EditActivity.this,UserReport.class));
                                         loadingDialog.dismisss();
                                         Toast.makeText(EditActivity.this, "Data saved successfully.", Toast.LENGTH_SHORT).show();
                                     }

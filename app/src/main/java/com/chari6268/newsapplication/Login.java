@@ -73,10 +73,13 @@ public class Login extends AppCompatActivity {
         String password = inputPassword.getText().toString();
 
         if(email.equals("vignantd") && password.equals("vignantd")){
+            loadingDialog.dismisss();
             startActivity(new Intent(this,MainActivity.class));
+            finish();
         }
 
         if (email.isEmpty() || password.isEmpty()) {
+            loadingDialog.dismisss();
             inputMail.setError("Email cannot be empty");
             inputPassword.setError("Password cannot be empty");
         } else {

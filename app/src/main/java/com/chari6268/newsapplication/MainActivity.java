@@ -6,6 +6,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     TextView workLoadInToolBar,tittle;
     ImageView menu;
     SharedPreferences sharedPreferences;
+    TextView noDataFound;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
         menu = findViewById(R.id.IconinToolbar);
         menu.setVisibility(View.GONE);
         tittle.setText("News List to Check");
+        noDataFound = findViewById(R.id.NoDataFound);
+        noDataFound.setVisibility(View.GONE);
 
 
         recyclerView = findViewById(R.id.recycler_view);
@@ -90,11 +95,16 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
 
-
-                        System.out.println(userList);
-                        userAdapter = new UserAdapter(filteredNewUserDataList,MainActivity.this);
-                        recyclerView.setAdapter(userAdapter);
-                        loadingDialog.dismisss();
+                        if(filteredNewUserDataList.size()!=0) {
+                            System.out.println(userList);
+                            userAdapter = new UserAdapter(filteredNewUserDataList, MainActivity.this);
+                            recyclerView.setAdapter(userAdapter);
+                            loadingDialog.dismisss();
+                        }else{
+                            noDataFound.setVisibility(View.VISIBLE);
+                            recyclerView.setVisibility(View.GONE);
+                            loadingDialog.dismisss();
+                        }
                     }
 
                     @Override
@@ -114,9 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
     public void onBackPressed() {
-        super.onBackPressed();
         finish();
     }
 }
