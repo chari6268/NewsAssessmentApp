@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot userSnapshot) {
                         filteredUserDataList.clear(); // Clear previous data
 
+
                         for (DataSnapshot snapshot : userSnapshot.getChildren()) {
                             userData user = snapshot.getValue(userData.class);
                                 filteredUserDataList.add(user);
@@ -77,20 +78,21 @@ public class MainActivity extends AppCompatActivity {
 
                         // Extract user IDs from the filtered user data
                         List<String> validUserIds = new ArrayList<>();
-                        for (userData user : filteredUserDataList) {
-                            validUserIds.add(user.getUuid()); // Assuming `uuid` is used to match with `userId` in NewsData
+                        for (NewsData user : userList) {
+                            validUserIds.add(user.getUserId()); // Assuming `uuid` is used to match with `userId` in NewsData
                         }
 
                         // Filter NewsData based on valid user IDs
-                        List<NewsData> filteredNewsDataList = new ArrayList<>();
-                        for (NewsData newsData : userList) {
-                            if (validUserIds.contains(newsData.getUserId())) {
-                                filteredNewsDataList.add(newsData);
+                        List<userData> filteredNewUserDataList = new ArrayList<>();
+                        for (userData newsData : filteredUserDataList) {
+                            if (validUserIds.contains(newsData.getUuid())) {
+                                filteredNewUserDataList.add(newsData);
                             }
                         }
 
+
                         System.out.println(userList);
-                        userAdapter = new UserAdapter(filteredUserDataList,MainActivity.this);
+                        userAdapter = new UserAdapter(filteredNewUserDataList,MainActivity.this);
                         recyclerView.setAdapter(userAdapter);
                         loadingDialog.dismisss();
                     }
@@ -110,5 +112,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

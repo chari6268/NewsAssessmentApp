@@ -72,6 +72,8 @@ public class DetailActivity extends AppCompatActivity {
                     cityTextView.setText(city);
                     postTextView.setText(user.getTextInput());
                     loadingDialog.dismisss();
+                }else{
+                    loadingDialog.dismisss();
                 }
             }
 
