@@ -1,4 +1,4 @@
-package com.chari6268.newsapplication;
+package com.chari6268.newsapplication.vignan;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.google.firebase.database.ValueEventListener;
+import com.chari6268.newsapplication.R;
 
 import java.util.List;
 

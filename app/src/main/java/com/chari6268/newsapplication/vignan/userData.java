@@ -1,4 +1,4 @@
-package com.chari6268.newsapplication;
+package com.chari6268.newsapplication.vignan;
 
 public class userData {
     private String name, collegeId,email,password, phone, city,department, profilePic,uuid;

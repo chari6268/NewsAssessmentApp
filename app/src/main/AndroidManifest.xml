@@ -15,20 +15,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NewsApplication"
         tools:targetApi="31">
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3940256099942544~3347511713" />
+
         <activity
-            android:name=".EditActivity"
+            android:name=".vignan.EditActivity"
             android:exported="false" />
         <activity
-            android:name=".UserReport"
+            android:name=".vignan.UserReport"
             android:exported="false" />
         <activity
-            android:name=".DetailActivity"
+            android:name=".vignan.DetailActivity"
             android:exported="false" />
         <activity
-            android:name=".postNews"
+            android:name=".vignan.postNews"
             android:exported="false" />
         <activity
-            android:name=".Registration"
+            android:name=".vignan.Registration"
             android:exported="true">
 
             <!-- <intent-filter> -->
@@ -39,7 +44,7 @@
             <!-- </intent-filter> -->
         </activity>
         <activity
-            android:name=".Login"
+            android:name=".vignan.Login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -48,7 +53,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".vignan.MainActivity"
             android:exported="true">
 
             <!-- <intent-filter> -->

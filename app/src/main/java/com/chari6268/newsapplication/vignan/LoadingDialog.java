@@ -1,10 +1,12 @@
-package com.chari6268.newsapplication;
+package com.chari6268.newsapplication.vignan;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.InsetDrawable;
+
+import com.chari6268.newsapplication.R;
 
 public class LoadingDialog { private Activity activity;
     private AlertDialog dialog;

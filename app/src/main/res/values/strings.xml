@@ -32,7 +32,7 @@
     </string-array>
 
     <string-array name="city">
-        <item>Select city</item>
+        <item>Select State</item>
         <item>Andhra Pradesh</item>
         <item>Telangana</item>
     </string-array>

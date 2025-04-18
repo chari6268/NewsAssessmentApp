@@ -1,4 +1,4 @@
-package com.chari6268.newsapplication;
+package com.chari6268.newsapplication.vignan;
 
 public interface UploadCallback {
     void onSuccess(String fileUrl);
