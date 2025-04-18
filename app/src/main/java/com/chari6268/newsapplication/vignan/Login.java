@@ -1,5 +1,6 @@
 package com.chari6268.newsapplication;
 
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -47,6 +48,9 @@ public class Login extends AppCompatActivity {
         // Initialize UI components
         inputMail = findViewById(R.id.input_mail);
         inputPassword = findViewById(R.id.input_password);
+        if (inputMail == null || inputPassword == null) {
+            throw new IllegalStateException("UI components not initialized. Check your layout IDs.");
+        }
         loginButton = findViewById(R.id.phone_submit_button);
         signInSignUp = findViewById(R.id.signin_signup);
 
@@ -71,23 +75,28 @@ public class Login extends AppCompatActivity {
         loadingDialog.load();
         String email = inputMail.getText().toString();
         String password = inputPassword.getText().toString();
+        if (email == null || email.isEmpty() || password == null || password.isEmpty()) {
+            loadingDialog.dismisss();
+            inputMail.setError("Email cannot be empty");
+            inputPassword.setError("Password cannot be empty");
+            return;
+        }
 
         if(email.equals("vignantd") && password.equals("vignantd")){
             loadingDialog.dismisss();
             startActivity(new Intent(this,MainActivity.class));
             finish();
-        }
-
-        if (email.isEmpty() || password.isEmpty()) {
-            loadingDialog.dismisss();
-            inputMail.setError("Email cannot be empty");
-            inputPassword.setError("Password cannot be empty");
-        } else {
+        }else {
             FirebaseDatabase.getInstance().getReference().child("UserData").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.child("NEED_TO_BE_ACTIVATED").hasChild(email)){
                         userData studentData = snapshot.child("NEED_TO_BE_ACTIVATED").child(email).getValue(userData.class);
+                        if(studentData == null){
+                            loadingDialog.dismisss();
+                            Toast.makeText(Login.this, "No such user", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                         if (password.equals(studentData.getPassword())){
                             FirebaseAuth.getInstance().createUserWithEmailAndPassword(studentData.getEmail(), studentData.getPassword()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
