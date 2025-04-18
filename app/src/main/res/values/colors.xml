@@ -40,4 +40,51 @@
 
 
     <color name="gray">#888</color>
+        <!-- Base application colors -->
+        <color name="colorPrimary">#4285F4</color>
+        <color name="colorPrimaryDark">#3367D6</color>
+        <color name="colorAccent">#F4B400</color>
+        <!-- Category selection colors -->
+        <color name="colorSelectedCategory">#4285F4</color>
+        <color name="colorUnselectedCategory">#FFFFFF</color>
+
+        <!-- Text colors -->
+        <color name="grey_text">#757575</color>
+        <color name="light_text">#AEAEAE</color>
+        <color name="dark_text">#212121</color>
+
+        <!-- UI element colors -->
+        <color name="background_light">#F5F5F5</color>
+        <color name="background_dark">#303030</color>
+        <color name="divider">#E0E0E0</color>
+        <color name="shadow">#33000000</color>
+
+        <!-- Category-specific colors -->
+        <color name="politics">#4285F4</color>  <!-- Blue -->
+        <color name="technology">#DB4437</color>  <!-- Red -->
+        <color name="sports">#0F9D58</color>  <!-- Green -->
+        <color name="entertainment">#F4B400</color>  <!-- Yellow -->
+        <color name="business">#4B0082</color>  <!-- Indigo -->
+        <color name="health">#E67C73</color>  <!-- Pink -->
+
+        <!-- Button states -->
+        <color name="button_enabled">#4285F4</color>
+        <color name="button_disabled">#BDBDBD</color>
+        <color name="button_pressed">#3367D6</color>
+
+        <!-- News item elements -->
+        <color name="save_icon_active">#F4B400</color>
+        <color name="save_icon_inactive">#FFFFFF</color>
+        <color name="share_icon">#FFFFFF</color>
+
+        <!-- Overlay and gradient colors -->
+        <color name="black_overlay">#66000000</color>
+        <color name="gradient_start">#CC000000</color>
+        <color name="gradient_end">#00000000</color>
+
+        <!-- Alert and notification colors -->
+        <color name="error">#DB4437</color>
+        <color name="success">#0F9D58</color>
+        <color name="warning">#F4B400</color>
+        <color name="info">#4285F4</color>
 </resources>

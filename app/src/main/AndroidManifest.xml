@@ -16,6 +16,22 @@
         android:theme="@style/Theme.NewsApplication"
         tools:targetApi="31">
 
+        <activity android:name=".siara.LoginActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".siara.CategorySelectionActivity"
+            android:exported="false" />
+        <activity android:name=".siara.NewsFeedActivity"
+            android:exported="false" />
+        <activity android:name=".siara.OTPVerificationActivity"
+            android:exported="false" />
+
+
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3940256099942544~3347511713" />
@@ -46,11 +62,11 @@
         <activity
             android:name=".vignan.Login"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity
             android:name=".vignan.MainActivity"
